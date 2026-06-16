@@ -1,2 +1,2 @@
-# Control-de-lista-de-reproducci-n
+# Control-de-lista-de-reproduccion
 Proyecto de Programación Orientada a Objetos
