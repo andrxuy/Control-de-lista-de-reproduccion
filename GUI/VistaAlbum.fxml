@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('file:fondo_para_login.jpg');" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+
+      <!-- Fondo -->
+      <ImageView fitHeight="407.0" fitWidth="600.0" layoutY="-3.0">
+         <image>
+            <Image url="@fondo_para_login.jpg" />
+         </image>
+      </ImageView>
+
+      <!-- Capa oscura morada -->
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9211ba" height="360.0" layoutX="22.0" layoutY="14.0" opacity="0.58" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="559.0" />
+
+      <!-- Botón volver -->
+      <Label layoutX="35.0" layoutY="22.0" text="‹" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Bold" size="20.0" />
+         </font>
+      </Label>
+
+      <!-- Pill "ALBUM TITLE" con degradado rosa-morado -->
+      <Rectangle arcHeight="16.0" arcWidth="16.0" height="30.0" layoutX="65.0" layoutY="18.0" width="160.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.0" startX="0.0" startY="0.0">
+               <stops>
+                  <Stop color="#ff2e92" offset="0.0" />
+                  <Stop color="#9211ba" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label layoutX="78.0" layoutY="24.0" text="▶" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="98.0" layoutY="24.0" text="ALBUM TITLE" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Bold" size="12.0" />
+         </font>
+      </Label>
+
+      <!-- Iconos compartir / favorito -->
+      <Button layoutX="235.0" layoutY="16.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="⤴" />
+      <Button layoutX="265.0" layoutY="16.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="♡" />
+
+      <!-- Portada del álbum -->
+      <Pane layoutX="40.0" layoutY="58.0" prefHeight="90.0" prefWidth="90.0">
+         <children>
+            <ImageView fitHeight="90.0" fitWidth="90.0" preserveRatio="false">
+               <image>
+                  <Image url="@disco.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+
+      <!-- Info del álbum -->
+      <Label layoutX="145.0" layoutY="65.0" text="12 Songs" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="145.0" layoutY="88.0" text="1.5M followers" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="145.0" layoutY="112.0" text="•••" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="180.0" layoutY="112.0" text="♡" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="13.0" />
+         </font>
+      </Label>
+
+      <!-- ===== Lista de canciones ===== -->
+
+      <!-- Canción 1 -->
+      <Button fx:id="btnPlaySong1" layoutX="40.0" layoutY="150.0" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-text-fill: #ff2e92;" text="▶" />
+      <Label layoutX="70.0" layoutY="156.0" text="Artist - Song Title 01" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="156.0" text="3:40" textFill="WHITE" opacity="0.7">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="460.0" layoutY="156.0" text="⤴" textFill="WHITE" />
+      <Label layoutX="490.0" layoutY="156.0" text="♡" textFill="WHITE" />
+      <Label layoutX="520.0" layoutY="156.0" text="•••" textFill="WHITE" />
+
+      <!-- Canción 2 -->
+      <Button fx:id="btnPlaySong2" layoutX="40.0" layoutY="185.0" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-text-fill: #ff2e92;" text="▶" />
+      <Label layoutX="70.0" layoutY="191.0" text="Artist - Song Title 02" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="191.0" text="4:10" textFill="WHITE" opacity="0.7">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="460.0" layoutY="191.0" text="⤴" textFill="WHITE" />
+      <Label layoutX="490.0" layoutY="191.0" text="♡" textFill="WHITE" />
+      <Label layoutX="520.0" layoutY="191.0" text="•••" textFill="WHITE" />
+
+      <!-- Canción 3 -->
+      <Button fx:id="btnPlaySong3" layoutX="40.0" layoutY="220.0" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-text-fill: #ff2e92;" text="▶" />
+      <Label layoutX="70.0" layoutY="226.0" text="Artist - Song Title 03" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="226.0" text="2:58" textFill="WHITE" opacity="0.7">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="460.0" layoutY="226.0" text="⤴" textFill="WHITE" />
+      <Label layoutX="490.0" layoutY="226.0" text="♡" textFill="WHITE" />
+      <Label layoutX="520.0" layoutY="226.0" text="•••" textFill="WHITE" />
+
+      <!-- Canción 4 -->
+      <Button fx:id="btnPlaySong4" layoutX="40.0" layoutY="255.0" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-text-fill: #ff2e92;" text="▶" />
+      <Label layoutX="70.0" layoutY="261.0" text="Artist - Song Title 04" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="261.0" text="4:05" textFill="WHITE" opacity="0.7">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="460.0" layoutY="261.0" text="⤴" textFill="WHITE" />
+      <Label layoutX="490.0" layoutY="261.0" text="♡" textFill="WHITE" />
+      <Label layoutX="520.0" layoutY="261.0" text="•••" textFill="WHITE" />
+
+      <!-- Canción 5 -->
+      <Button fx:id="btnPlaySong5" layoutX="40.0" layoutY="290.0" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-text-fill: #ff2e92;" text="▶" />
+      <Label layoutX="70.0" layoutY="296.0" text="Artist - Song Title 05" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="296.0" text="3:15" textFill="WHITE" opacity="0.7">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="460.0" layoutY="296.0" text="⤴" textFill="WHITE" />
+      <Label layoutX="490.0" layoutY="296.0" text="♡" textFill="WHITE" />
+      <Label layoutX="520.0" layoutY="296.0" text="•••" textFill="WHITE" />
+
+      <!-- Canción 6 -->
+      <Button fx:id="btnPlaySong6" layoutX="40.0" layoutY="325.0" prefHeight="24.0" prefWidth="24.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-text-fill: #ff2e92;" text="▶" />
+      <Label layoutX="70.0" layoutY="331.0" text="Artist - Song Title 06" textFill="WHITE">
+         <font>
+            <Font name="California FB 24 Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="420.0" layoutY="331.0" text="2:47" textFill="WHITE" opacity="0.7">
+         <font>
+            <Font name="California FB 24 Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="460.0" layoutY="331.0" text="⤴" textFill="WHITE" />
+      <Label layoutX="490.0" layoutY="331.0" text="♡" textFill="WHITE" />
+      <Label layoutX="520.0" layoutY="331.0" text="•••" textFill="WHITE" />
+
+   </children>
+</Pane>
