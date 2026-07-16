@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" style="-fx-background-image: url('fondo_para_login.jpg'); -fx-background-position: center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.epn.proyecto_poo.LOGINController">
+   <children>
+      <ImageView fitHeight="785.0" fitWidth="1540.0">
+         <image>
+            <Image url="@fondo_para_login.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="43.0" layoutY="34.0" opacity="0.65" prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: #4b095e;">
+         <children>
+            <TextField fx:id="txtUser" layoutX="181.0" layoutY="177.0" prefHeight="43.0" prefWidth="209.0" promptText="Ingresar Usuario" style="-fx-border-color: #4b095e; -fx-background-radius: 15;">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <PasswordField fx:id="txtPassword" layoutX="181.0" layoutY="254.0" prefHeight="43.0" prefWidth="209.0" promptText="Ingresar contraseña" style="-fx-border-color: #4b095e; -fx-background-radius: 15;">
+               <font>
+                  <Font size="18.0" />
+               </font></PasswordField>
+            <Button fx:id="btnLogIn" onAction="#iniciarSesion" layoutX="196.0" layoutY="428.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="197.0" style="-fx-background-color: #7221b0;" text="Inciar Sesion" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="134.0" layoutY="498.0" text="Tienes una cuenta?... Registrate aqui" textFill="WHITE">
+               <font>
+                  <Font name="Californian FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="256.0" layoutY="542.0" text="clcik aqui..." textFill="WHITE">
+               <font>
+                  <Font name="Californian FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="205.0" layoutY="65.0" prefHeight="66.0" prefWidth="161.0" text="LOG IN" textFill="WHITE">
+               <font>
+                  <Font name="Californian FB" size="48.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbRol" layoutX="184.0" layoutY="342.0" prefHeight="43.0" prefWidth="209.0" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

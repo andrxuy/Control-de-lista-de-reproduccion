@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" style="-fx-background-image: url('fondo_para_login.jpg'); -fx-background-position: center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.epn.proyecto_poo.REGISTERController">
+   <children>
+      <ImageView fitHeight="785.0" fitWidth="1540.0">
+         <image>
+            <Image url="@fondo_para_login.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="43.0" layoutY="34.0" opacity="0.65" prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: #4b095e;">
+         <children>
+            <TextField fx:id="txtUser" layoutX="183.0" layoutY="231.0" prefHeight="43.0" prefWidth="233.0" promptText="Ingresar Usuario" style="-fx-border-color: #4b095e; -fx-background-radius: 15;" />
+            <PasswordField fx:id="txtPassword" layoutX="183.0" layoutY="313.0" prefHeight="43.0" prefWidth="233.0" promptText="Ingresar contraseña" style="-fx-border-color: #4b095e; -fx-background-radius: 15;" />
+            <Button onAction="#Registrar" layoutX="220.0" layoutY="484.0" mnemonicParsing="false" style="-fx-background-color: #7221b0;" text="REGISTRAR" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <Label layoutX="202.0" layoutY="111.0" prefHeight="58.0" prefWidth="233.0" text="REGISTER" textFill="WHITE">
+               <font>
+                  <Font name="Californian FB" size="48.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbRol" layoutX="183.0" layoutY="398.0" prefHeight="43.0" prefWidth="233.0" />
+         </children>
+      </Pane>
+   </children>
+</Pane>
