@@ -11,4 +11,9 @@ public class Seguridad {
     public boolean validarHash(String password_plana, String password_phash){
         return BCrypt.checkpw(password_plana, password_phash);
     }
+    public static void main(String[] args) {
+        Seguridad seguridad = new Seguridad();
+        System.out.println(seguridad.generarHash("123456"));
+
+    }
 }

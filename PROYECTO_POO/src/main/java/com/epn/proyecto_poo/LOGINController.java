@@ -7,9 +7,15 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LOGINController {
     @FXML TextField txtUser;
@@ -19,37 +25,70 @@ public class LOGINController {
     public void initialize(){
         cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
     }
+    //----------------
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("aplicacion");
+    EntityManager em = emf.createEntityManager();
 
-    @FXML
+    loginDAO loginDAO = new loginDAO(em);
+    Seguridad seguridad = new Seguridad();
+
     public void iniciarSesion(){
-        Seguridad seguridad = new Seguridad();
         String user = txtUser.getText();
         String password_plana = txtPassword.getText();
+        String rol = cmbRol.getValue();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("aplicacion");
-        EntityManager em = emf.createEntityManager();
+        if (user.isEmpty() || password_plana.isEmpty() || rol == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos",
+                    "Por favor completa usuario, contraseña y selecciona un rol.");
+            return;
+        }
 
         try {
-            loginDAO loginDAO = new loginDAO(em);
-            Usuario encontrado = loginDAO.buscarUsuario(user, cmbRol.getValue());
+            Usuario usuarioEncontrado = loginDAO.buscarUsuario(user, rol);
 
-            boolean loginValido = encontrado != null
-                    && seguridad.validarHash(password_plana, encontrado.getPassword_hash());
-
-            if (!loginValido) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERROR NO SE PUDO INICIAR SESION");
-                alert.setContentText("Credenciales incorrectas!");
-                alert.show();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("SE PUDO INICIAR SESION");
-                alert.setContentText("Bienvenido a Mi Playlist, " + encontrado.getRol() + "!");
-                alert.show();
+            if (usuarioEncontrado == null) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Usuario no encontrado",
+                        "No existe un usuario con ese nombre y rol.");
+                return;
             }
-        } finally {
-            em.close();
-            emf.close();
+
+            boolean passwordCorrecta = seguridad.validarHash(password_plana, usuarioEncontrado.getPassword_hash());
+
+            if (passwordCorrecta) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido",
+                        "Inicio de sesión exitoso, " + usuarioEncontrado.getNombre_usuario());
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Contraseña incorrecta",
+                        "La contraseña ingresada no es correcta.");
+            }
+
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error al iniciar sesión",
+                    "Ocurrió un error inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+    public static void irALogin(Stage stageActual) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    LOGINController.class.getResource("/com/epn/proyecto_poo/LOGIN.fxml")
+            );
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stageActual.setScene(scene);
+            stageActual.setTitle("Iniciar Sesión");
+            stageActual.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -53,6 +53,8 @@ public class REGISTERController {
                 txtUser.clear();
                 txtPassword.clear();
                 cmbRol.getSelectionModel().clearSelection();
+                Stage stage = new Stage();
+                irALogin(stage);
 
             }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -62,6 +64,21 @@ public class REGISTERController {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void irALogin(Stage stageActual) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    REGISTERController.class.getResource("/com/epn/proyecto_poo/LOGIN.fxml")
+            );
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stageActual.setScene(scene);
+            stageActual.setTitle("Iniciar Sesión");
+            stageActual.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

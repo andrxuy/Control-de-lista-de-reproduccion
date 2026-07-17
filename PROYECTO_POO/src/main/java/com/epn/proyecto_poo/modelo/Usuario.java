@@ -9,7 +9,7 @@ public class Usuario {
     private Integer ID_usuario;
     @Column(nullable = false, length = 255)
     private String nombre_usuario   ;
-    @Column(nullable = false, length = 255)
+    @Column(name = "password_hash", nullable = false)
     private String password_hash;
     @Column(nullable = false, length = 255)
     private String rol;
@@ -45,9 +45,7 @@ public class Usuario {
         this.nombre_usuario = nombre_usuario;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
-    }
+    public String getPassword_hash() {return password_hash;}
 
     public void setPassword_hash(String password_hash) {
         this.password_hash = password_hash;

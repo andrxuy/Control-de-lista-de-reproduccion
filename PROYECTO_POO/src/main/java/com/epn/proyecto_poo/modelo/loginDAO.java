@@ -21,9 +21,12 @@ public class loginDAO implements LOGIN{
         }
     }
 
+    Seguridad seguridad = new Seguridad();
+
     @Override
     public void Insertar(Usuario u) {
         try {
+            u.setPassword_hash(seguridad.generarHash(u.getPassword_hash()));
             em.getTransaction().begin();
             em.persist(u);
             em.getTransaction().commit();
