@@ -1,5 +1,6 @@
 package com.epn.proyecto_poo;
 
+import com.epn.proyecto_poo.modelo.JPAUtil;
 import com.epn.proyecto_poo.modelo.Usuario;
 import com.epn.proyecto_poo.modelo.loginDAO;
 import jakarta.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class REGISTERController {
     TextField txtPassword;
     @FXML
     ComboBox<String>cmbRol;
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("aplicacion");
+    EntityManagerFactory emf = JPAUtil.getEMF();
     EntityManager em = emf.createEntityManager();
     loginDAO loginDAO = new loginDAO(em);
 
@@ -64,6 +65,9 @@ public class REGISTERController {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }finally {
+            em.close();
+            emf.close();
         }
     }
 

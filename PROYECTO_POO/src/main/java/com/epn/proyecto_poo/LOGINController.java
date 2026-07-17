@@ -1,5 +1,6 @@
 package com.epn.proyecto_poo;
 
+import com.epn.proyecto_poo.modelo.JPAUtil;
 import com.epn.proyecto_poo.modelo.Seguridad;
 import com.epn.proyecto_poo.modelo.Usuario;
 import com.epn.proyecto_poo.modelo.loginDAO;
@@ -26,7 +27,7 @@ public class LOGINController {
         cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
     }
     //----------------
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("aplicacion");
+    EntityManagerFactory emf = JPAUtil.getEMF();
     EntityManager em = emf.createEntityManager();
 
     loginDAO loginDAO = new loginDAO(em);
@@ -68,6 +69,9 @@ public class LOGINController {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al iniciar sesión",
                     "Ocurrió un error inesperado: " + e.getMessage());
             e.printStackTrace();
+        }finally {
+            em.close();
+            emf.close();
         }
     }
 
@@ -91,6 +95,9 @@ public class LOGINController {
             stageActual.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            em.close();
+            emf.close();
         }
     }
     public void goRegister(){
@@ -109,6 +116,9 @@ public class LOGINController {
             stageActual.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            em.close();
+            emf.close();
         }
     }
 }

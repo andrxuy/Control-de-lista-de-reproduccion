@@ -31,6 +31,21 @@ public class loginDAO implements LOGIN{
             em.persist(u);
             em.getTransaction().commit();
             System.out.println("Usuario insertado!");
+            InsertarSesion(new enSesion(u.getNombre_usuario(), u.getRol()));
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.out.println("Error al insertar: " + e.getMessage());
+        }
+    }
+
+    public void InsertarSesion(enSesion u) {
+        try {
+            em.getTransaction().begin();
+            em.persist(u);
+            em.getTransaction().commit();
+            System.out.println("Sesion insertada!");
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
