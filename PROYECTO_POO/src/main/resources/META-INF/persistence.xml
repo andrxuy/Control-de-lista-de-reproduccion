@@ -4,7 +4,7 @@
         <class>com.epn.proyecto_poo.modelo.Usuario</class>
 
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://192.168.100.132:3307/aplicacion"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://192.168.100.132:3306/aplicacion"/>
             <property name="jakarta.persistence.jdbc.user" value="ADMIN_BD"/>
             <property name="jakarta.persistence.jdbc.password" value="PROYP00"/>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

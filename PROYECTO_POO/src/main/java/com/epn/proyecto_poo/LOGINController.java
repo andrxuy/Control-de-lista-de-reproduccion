@@ -57,6 +57,8 @@ public class LOGINController {
             if (passwordCorrecta) {
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido",
                         "Inicio de sesión exitoso, " + usuarioEncontrado.getNombre_usuario());
+                Stage stage = new Stage();
+                irAprincipal(stage);
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Contraseña incorrecta",
                         "La contraseña ingresada no es correcta.");
@@ -77,10 +79,28 @@ public class LOGINController {
         alerta.showAndWait();
     }
 
-    public static void irALogin(Stage stageActual) {
+    public void irARegistro(Stage stageActual){
         try {
             FXMLLoader loader = new FXMLLoader(
-                    LOGINController.class.getResource("/com/epn/proyecto_poo/LOGIN.fxml")
+                    REGISTERController.class.getResource("/com/epn/proyecto_poo/Register.fxml")
+            );
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stageActual.setScene(scene);
+            stageActual.setTitle("Iniciar Sesión");
+            stageActual.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void goRegister(){
+        Stage stage = new Stage();
+        irARegistro(stage);
+    }
+    public void irAprincipal(Stage stageActual){
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    REGISTERController.class.getResource("/com/epn/proyecto_poo/vistaAlbum.fxml")
             );
             Parent root = loader.load();
             Scene scene = new Scene(root);

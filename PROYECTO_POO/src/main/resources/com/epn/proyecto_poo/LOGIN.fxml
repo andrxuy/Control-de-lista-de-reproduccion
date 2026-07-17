@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" style="-fx-background-image: url('fondo_para_login.jpg'); -fx-background-position: center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="com.epn.proyecto_poo.LOGINController">
+      fx:controller="com.epn.proyecto_poo.LOGINController">
    <children>
       <ImageView fitHeight="785.0" fitWidth="1540.0">
          <image>
@@ -23,27 +23,22 @@ fx:controller="com.epn.proyecto_poo.LOGINController">
                <font>
                   <Font size="18.0" />
                </font></PasswordField>
-            <Button fx:id="btnLogIn" onAction="#iniciarSesion" layoutX="196.0" layoutY="428.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="197.0" style="-fx-background-color: #7221b0;" text="Inciar Sesion" textFill="WHITE">
+            <Button fx:id="btnLogIn" layoutX="196.0" layoutY="428.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="54.0" prefWidth="197.0" style="-fx-background-color: #7221b0;" text="Inciar Sesion" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label layoutX="134.0" layoutY="498.0" text="Tienes una cuenta?... Registrate aqui" textFill="WHITE">
-               <font>
-                  <Font name="Californian FB" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="256.0" layoutY="542.0" text="clcik aqui..." textFill="WHITE">
-               <font>
-                  <Font name="Californian FB" size="24.0" />
-               </font>
-            </Label>
             <Label layoutX="205.0" layoutY="65.0" prefHeight="66.0" prefWidth="161.0" text="LOG IN" textFill="WHITE">
                <font>
                   <Font name="Californian FB" size="48.0" />
                </font>
             </Label>
             <ComboBox fx:id="cmbRol" layoutX="184.0" layoutY="342.0" prefHeight="43.0" prefWidth="209.0" />
+            <Hyperlink fx:id="lblIRLOGIN" onAction="#goRegister" layoutX="127.0" layoutY="497.0" text="Tienes una cuenta?... Registrate aqui" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
          </children>
       </Pane>
    </children>
