@@ -67,7 +67,6 @@ public class REGISTERController {
             System.out.println(e.getMessage());
         }finally {
             em.close();
-            emf.close();
         }
     }
 

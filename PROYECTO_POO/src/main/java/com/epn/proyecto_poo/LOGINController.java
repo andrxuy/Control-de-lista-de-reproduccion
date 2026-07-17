@@ -71,7 +71,6 @@ public class LOGINController {
             e.printStackTrace();
         }finally {
             em.close();
-            emf.close();
         }
     }
 
@@ -97,7 +96,6 @@ public class LOGINController {
             e.printStackTrace();
         }finally {
             em.close();
-            emf.close();
         }
     }
     public void goRegister(){
@@ -118,7 +116,6 @@ public class LOGINController {
             e.printStackTrace();
         }finally {
             em.close();
-            emf.close();
         }
     }
 }
