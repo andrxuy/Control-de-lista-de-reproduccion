@@ -50,12 +50,11 @@ public class REGISTERController {
                 txtPassword.clear();
                 txtUser.clear();
                 cmbRol.getSelectionModel().clearSelection();
-                //---------------
-                txtUser.clear();
-                txtPassword.clear();
-                cmbRol.getSelectionModel().clearSelection();
+
                 Stage stage = new Stage();
                 irALogin(stage);
+                Stage actual = (Stage) txtPassword.getScene().getWindow();
+                actual.close();
 
             }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -65,8 +64,6 @@ public class REGISTERController {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }finally {
-            em.close();
         }
     }
 
