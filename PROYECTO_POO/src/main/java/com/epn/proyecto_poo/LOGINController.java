@@ -1,9 +1,6 @@
 package com.epn.proyecto_poo;
 
-import com.epn.proyecto_poo.modelo.JPAUtil;
-import com.epn.proyecto_poo.modelo.Seguridad;
-import com.epn.proyecto_poo.modelo.Usuario;
-import com.epn.proyecto_poo.modelo.loginDAO;
+import com.epn.proyecto_poo.modelo.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -37,34 +34,29 @@ public class LOGINController {
         String user = txtUser.getText();
         String password_plana = txtPassword.getText();
         String rol = cmbRol.getValue();
-
         if (user.isEmpty() || password_plana.isEmpty() || rol == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos",
                     "Por favor completa usuario, contraseña y selecciona un rol.");
-            return;
-        }
-
+            return;}
         try {
             Usuario usuarioEncontrado = loginDAO.buscarUsuario(user, rol);
-
             if (usuarioEncontrado == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario no encontrado",
                         "No existe un usuario con ese nombre y rol.");
-                return;
-            }
-
+                return;}
             boolean passwordCorrecta = seguridad.validarHash(password_plana, usuarioEncontrado.getPassword_hash());
-
             if (passwordCorrecta) {
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido",
                         "Inicio de sesión exitoso, " + usuarioEncontrado.getNombre_usuario());
                 Stage stage = new Stage();
                 irAprincipal(stage);
+                Stage stageVieja = (Stage) txtUser.getScene().getWindow();
+                stageVieja.close();
+                loginDAO.InsertarSesion(new enSesion(user, rol));
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Contraseña incorrecta",
                         "La contraseña ingresada no es correcta.");
             }
-
         } catch (Exception e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al iniciar sesión",
                     "Ocurrió un error inesperado: " + e.getMessage());
@@ -92,6 +84,8 @@ public class LOGINController {
             stageActual.setScene(scene);
             stageActual.setTitle("Iniciar Sesión");
             stageActual.show();
+            Stage stageVieja = (Stage) txtUser.getScene().getWindow();
+            stageVieja.close();
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
@@ -110,12 +104,12 @@ public class LOGINController {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stageActual.setScene(scene);
+
             stageActual.setTitle("Iniciar Sesión");
             stageActual.show();
+
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            em.close();
         }
     }
 }
