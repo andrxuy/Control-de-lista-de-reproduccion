@@ -31,15 +31,18 @@ public class LOGINController {
     Seguridad seguridad = new Seguridad();
 
     public void iniciarSesion(){
+        System.out.println("inicio de proceso");
         String user = txtUser.getText();
         String password_plana = txtPassword.getText();
         String rol = cmbRol.getValue();
+        System.out.println("usuario recepto: user: " +user+", passwprd: "+password_plana+", rol: "+rol);
         if (user.isEmpty() || password_plana.isEmpty() || rol == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos",
                     "Por favor completa usuario, contraseña y selecciona un rol.");
             return;}
         try {
             Usuario usuarioEncontrado = loginDAO.buscarUsuario(user, rol);
+            System.out.println("Primer try.Usuario que se encontro: " + usuarioEncontrado);
             if (usuarioEncontrado == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario no encontrado",
                         "No existe un usuario con ese nombre y rol.");
@@ -61,8 +64,6 @@ public class LOGINController {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al iniciar sesión",
                     "Ocurrió un error inesperado: " + e.getMessage());
             e.printStackTrace();
-        }finally {
-            em.close();
         }
     }
 
