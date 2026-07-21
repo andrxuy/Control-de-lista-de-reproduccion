@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" style="-fx-background-image: url('fondo_para_login.jpg'); -fx-background-position: center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.epn.proyecto_poo.LOGINController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" style="-fx-background-image: url('fondo_para_login.jpg'); -fx-background-position: center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.epn.proyecto_poo.LOGINController">
    <children>
       <ImageView fitHeight="785.0" fitWidth="1540.0">
          <image>
@@ -34,7 +33,7 @@
                </font>
             </Label>
             <ComboBox fx:id="cmbRol" layoutX="184.0" layoutY="342.0" prefHeight="43.0" prefWidth="209.0" />
-            <Hyperlink fx:id="lblIRLOGIN" onAction="#goRegister" layoutX="127.0" layoutY="497.0" text="Tienes una cuenta?... Registrate aqui" textFill="WHITE">
+            <Hyperlink fx:id="lblIRLOGIN" layoutX="158.0" layoutY="498.0" onAction="#goRegister" text="¿No tienes una cuenta?" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
