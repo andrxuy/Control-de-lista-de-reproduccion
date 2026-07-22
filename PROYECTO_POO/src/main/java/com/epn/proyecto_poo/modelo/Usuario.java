@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_usuario")
     private Integer ID_usuario;
-    @Column(nullable = false, length = 255)
-    private String nombre_usuario   ;
+    @Column(name = "nombre_usuario", nullable = false, length = 255)
+    private String nombre_usuario;
     @Column(name = "password_hash", nullable = false)
     private String password_hash;
-    @Column(nullable = false, length = 255)
+    @Column(name = "rol", nullable = false, length = 255)
     private String rol;
 
     public Usuario() {}
