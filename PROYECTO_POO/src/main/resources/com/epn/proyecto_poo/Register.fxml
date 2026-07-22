@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" style="-fx-background-image: url('fondo_para_login.jpg'); -fx-background-position: center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="com.epn.proyecto_poo.REGISTERController">
+      fx:controller="com.epn.proyecto_poo.REGISTERController">
    <children>
       <ImageView fitHeight="785.0" fitWidth="1540.0">
          <image>
@@ -28,6 +28,11 @@ fx:controller="com.epn.proyecto_poo.REGISTERController">
                </font>
             </Label>
             <ComboBox fx:id="cmbRol" layoutX="183.0" layoutY="398.0" prefHeight="43.0" prefWidth="233.0" />
+            <Hyperlink fx:id="hpLINK" onAction="#irLOGIN" layoutX="43.0" layoutY="584.0" text="&lt;--  VOLER AL LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="Californian FB Bold" size="18.0" />
+               </font>
+            </Hyperlink>
          </children>
       </Pane>
    </children>
