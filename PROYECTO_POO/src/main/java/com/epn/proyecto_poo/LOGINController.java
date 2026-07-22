@@ -71,6 +71,7 @@ public class LOGINController {
             }
         }
     }
+
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
@@ -93,8 +94,6 @@ public class LOGINController {
             stageVieja.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            em.close();
         }
     }
     public void goRegister(){
