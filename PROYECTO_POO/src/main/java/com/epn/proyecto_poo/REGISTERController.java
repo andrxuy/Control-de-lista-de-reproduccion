@@ -24,9 +24,6 @@ public class REGISTERController {
     TextField txtPassword;
     @FXML
     ComboBox<String>cmbRol;
-    EntityManagerFactory emf = JPAUtil.getEMF();
-    EntityManager em = emf.createEntityManager();
-    loginDAO loginDAO = new loginDAO(em);
 
     @FXML
     public void initialize(){
@@ -37,9 +34,16 @@ public class REGISTERController {
         String user  = txtUser.getText();
         String password = txtPassword.getText();
         String rol = cmbRol.getValue();
-        System.out.println("antes try");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
         try{
+            emf = JPAUtil.getEMF();
+            em = emf.createEntityManager();
+            System.out.println("creo entidades");
+            loginDAO loginDAO = new loginDAO(em);
+            System.out.println("Se creo ya el login dao con su usuario");
             Usuario usuario = loginDAO.buscarUsuario(user, rol);
+            System.out.println("el encontrado es: " + usuario);
             if (usuario != null){
                 loginDAO.Insertar(new Usuario(user, password, rol));
                 System.out.println("REGISTRO EXITOSO!");
@@ -63,7 +67,14 @@ public class REGISTERController {
                 alert.show();
             }
         } catch (Exception e) {
+            System.out.println("llego al catch");
             System.out.println(e.getMessage());
+            em.close();
+        }finally {
+            if (em != null && em.isOpen()) {
+                System.out.println("se cerro la entidad / sesion");
+                em.close();
+            }
         }
     }
 
@@ -81,6 +92,8 @@ public class REGISTERController {
             e.printStackTrace();
         }
     }
-
-
+    public void irLOGIN(){
+        Stage stage= new Stage();
+        irALogin(stage);
+    }
 }
