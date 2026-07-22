@@ -42,6 +42,8 @@ public class PlaylistController {
     @FXML Slider sldProgreso;
     @FXML Slider sldVolumen;
     @FXML Button btnPlayPause;
+    @FXML Button btnIniciarSesion;
+    @FXML Button btnCerrarSesion;
 
     private CancionServicio cancionServicio;
     private ReproductorServicio reproductorServicio;
@@ -49,18 +51,21 @@ public class PlaylistController {
     private ObservableList<CancionTabla> listaCanciones;
     private boolean bloqueandoSlider = false;
     private boolean esAdmin = false;
+    private boolean esInvitado = false;
 
     public void initialize() {
         cancionServicio = new CancionServicio();
         reproductorServicio = new ReproductorServicio();
         deezerClient = new DeezerAPIClient();
         esAdmin = "Administrador".equals(SesionActual.getRol());
+        esInvitado = "Invitado".equals(SesionActual.getRol());
         configurarTabla();
         configurarBusqueda();
         configurarReproductor();
         cargarGeneros();
         cargarCanciones();
         mostrarUsuario();
+        configurarInvitado();
     }
 
     private void configurarTabla() {
@@ -94,10 +99,12 @@ public class PlaylistController {
                 CancionTabla cancion = getTableView().getItems().get(getIndex());
                 javafx.scene.layout.HBox hbox = new javafx.scene.layout.HBox(4);
 
-                Button btnPlay = new Button("Play");
-                btnPlay.setStyle("-fx-background-color: #1DB954; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 11;");
-                btnPlay.setOnAction(e -> reproducirCancion(cancion));
-                hbox.getChildren().add(btnPlay);
+                if (!esInvitado) {
+                    Button btnPlay = new Button("Play");
+                    btnPlay.setStyle("-fx-background-color: #1DB954; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 11;");
+                    btnPlay.setOnAction(e -> reproducirCancion(cancion));
+                    hbox.getChildren().add(btnPlay);
+                }
 
                 if (esAdmin) {
                     if (cancion.esDeDeezer()) {
@@ -204,6 +211,17 @@ public class PlaylistController {
         return String.format("%d:%02d", t / 60, t % 60);
     }
 
+    private void configurarInvitado() {
+        if (!esInvitado) return;
+        btnIniciarSesion.setVisible(true);
+        btnIniciarSesion.setManaged(true);
+        btnCerrarSesion.setVisible(false);
+        btnCerrarSesion.setManaged(false);
+        txtBusqueda.setDisable(true);
+        txtBuscarId.setDisable(true);
+        txtBuscarApi.setDisable(true);
+    }
+
     private void cargarGeneros() {
         cmbGenero.getItems().clear();
         cmbGenero.getItems().add("Todos");
@@ -220,6 +238,11 @@ public class PlaylistController {
     }
 
     private void buscarCanciones() {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para buscar canciones");
+            return;
+        }
         String filtro = txtBusqueda.getText();
         if (filtro == null || filtro.trim().isEmpty()) { cargarCanciones(); return; }
 
@@ -237,6 +260,11 @@ public class PlaylistController {
 
     @FXML
     public void buscarPorId() {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para buscar canciones por ID");
+            return;
+        }
         String texto = txtBuscarId.getText();
         if (texto == null || texto.trim().isEmpty()) {
             cargarCanciones();
@@ -264,6 +292,11 @@ public class PlaylistController {
 
     @FXML
     public void buscarEnDeezer() {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para buscar canciones en Deezer");
+            return;
+        }
         String query = txtBuscarApi.getText();
         if (query == null || query.trim().isEmpty()) {
             cargarCanciones();
@@ -308,6 +341,11 @@ public class PlaylistController {
 
     @FXML
     public void togglePlayPause() {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para reproducir canciones");
+            return;
+        }
         if (reproductorServicio.estaReproduciendo()) reproductorServicio.pausar();
         else if (reproductorServicio.estaPausado()) reproductorServicio.reanudar();
         else {
@@ -318,6 +356,11 @@ public class PlaylistController {
 
     @FXML
     public void detenerReproduccion() {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para usar el reproductor");
+            return;
+        }
         reproductorServicio.detener();
         lblCancionActual.setText("Ninguna cancion seleccionada");
         sldProgreso.setValue(0);
@@ -328,6 +371,11 @@ public class PlaylistController {
 
     @FXML
     public void reproducirSeleccionada() {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para reproducir canciones");
+            return;
+        }
         CancionTabla sel = tblCanciones.getSelectionModel().getSelectedItem();
         if (sel == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Sin seleccion", "Selecciona una cancion.");
@@ -337,6 +385,11 @@ public class PlaylistController {
     }
 
     private void reproducirCancion(CancionTabla item) {
+        if (esInvitado) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Accion no permitida",
+                    "Debes crear una cuenta para reproducir canciones");
+            return;
+        }
         lblEstado.setText("");
         if (item.esDeBD()) {
             reproductorServicio.reproducir(item.getCancionRef());
@@ -439,5 +492,21 @@ public class PlaylistController {
                 }
             }
         });
+    }
+
+    @FXML
+    public void irALogin() {
+        reproductorServicio.detener();
+        SesionActual.cerrarSesion();
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/epn/proyecto_poo/LOGIN.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) tblCanciones.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Iniciar Sesion");
+        } catch (IOException e) {
+            System.out.println("Error abriendo login: " + e.getMessage());
+        }
     }
 }
