@@ -39,7 +39,12 @@ public class LOGINController {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos",
                     "Por favor completa usuario, contraseña y selecciona un rol.");
             return;}
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
         try {
+            emf = JPAUtil.getEMF();
+            em = emf.createEntityManager();
+            loginDAO loginDAO = new loginDAO(em);
             Usuario usuarioEncontrado = loginDAO.buscarUsuario(user, rol);
             System.out.println("Primer try. Usuario que se encontro: " + usuarioEncontrado);
             if (usuarioEncontrado == null) {
@@ -63,9 +68,14 @@ public class LOGINController {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al iniciar sesión",
                     "Ocurrió un error inesperado: " + e.getMessage());
             e.printStackTrace();
+            em.close();
+        }finally {
+            if (em != null && em.isOpen()) {
+                System.out.println("llego al finally");
+                em.close();
+            }
         }
     }
-
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
