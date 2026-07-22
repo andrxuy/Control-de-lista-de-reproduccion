@@ -36,6 +36,14 @@ public class LOGINController {
             return;}
         EntityManagerFactory emf = null;
         EntityManager em = null;
+
+        if (rol == "Invitado"){
+            Stage stage = new Stage();
+            irAinvitado(stage);
+            Stage    stageVieja = (Stage) txtUser.getScene().getWindow();
+            stageVieja.close();
+            return;
+        }
         try {
             emf = JPAUtil.getEMF();
             em = emf.createEntityManager();
@@ -45,7 +53,8 @@ public class LOGINController {
             if (usuarioEncontrado == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario no encontrado",
                         "No existe un usuario con ese nombre y rol.");
-                return;}
+                return;
+            }
             boolean passwordCorrecta = seguridad.validarHash(password_plana, usuarioEncontrado.getPassword_hash());
             if (passwordCorrecta) {
                 loginDAO.InsertarSesion(new enSesion(user, rol));
@@ -96,6 +105,23 @@ public class LOGINController {
             e.printStackTrace();
         }
     }
+    public void irAinvitado(Stage stageActual){
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    REGISTERController.class.getResource("/com/epn/proyecto_poo/playlist1.fxml")
+            );
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stageActual.setScene(scene);
+            stageActual.setTitle("Invitado");
+            stageActual.show();
+            Stage stageVieja = (Stage) txtUser.getScene().getWindow();
+            stageVieja.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void goRegister(){
         Stage stage = new Stage();
         irARegistro(stage);

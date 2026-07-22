@@ -31,12 +31,21 @@ public class REGISTERController {
     }
 
     public void Registrar(){
-        String user  = txtUser.getText();
+        String user = txtUser.getText();
         String password = txtPassword.getText();
         String rol = cmbRol.getValue();
+
         EntityManagerFactory emf = null;
         EntityManager em = null;
         try{
+            if (user.isEmpty() || password.isEmpty() || rol == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("campos vacios");
+                alert.setContentText("Ingrese todos los datos");
+                alert.show();
+                return;
+            }
+
             emf = JPAUtil.getEMF();
             em = emf.createEntityManager();
             System.out.println("creo entidades");
@@ -44,12 +53,14 @@ public class REGISTERController {
             System.out.println("Se creo ya el login dao con su usuario");
             Usuario usuario = loginDAO.buscarUsuario(user, rol);
             System.out.println("el encontrado es: " + usuario);
-            if (usuario != null){
+            System.out.println(user + " " + password + " " + rol);
+
+            if (usuario == null){
                 loginDAO.Insertar(new Usuario(user, password, rol));
                 System.out.println("REGISTRO EXITOSO!");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("REGISTRO EXITOSO!");
-                alert.setContentText("BIENVENIDO "+ user);
+                alert.setContentText("BIENVENIDO " + user);
                 alert.show();
                 txtPassword.clear();
                 txtUser.clear();
@@ -60,7 +71,7 @@ public class REGISTERController {
                 Stage actual = (Stage) txtPassword.getScene().getWindow();
                 actual.close();
 
-            }else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("El usuario ya existe ingrese otro nuevamente!");
                 alert.setContentText("Ingrese un usuario que no tenga el mismo nombre y rol");
@@ -69,8 +80,7 @@ public class REGISTERController {
         } catch (Exception e) {
             System.out.println("llego al catch");
             System.out.println(e.getMessage());
-            em.close();
-        }finally {
+        } finally {
             if (em != null && em.isOpen()) {
                 System.out.println("se cerro la entidad / sesion");
                 em.close();
