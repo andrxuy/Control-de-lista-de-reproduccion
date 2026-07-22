@@ -15,8 +15,11 @@ public class loginDAO implements LOGIN{
             TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
             query.setParameter("nombreUsuario", nombreUsuario);
             query.setParameter("rol", rol);
-            return query.getSingleResult();
+            Usuario resultado = query.getSingleResult();
+            System.out.println("buscarUsuario OK => " + resultado);
+            return resultado;
         } catch (NoResultException e) {
+            System.out.println("buscarUsuario => No se encontro usuario con nombre='" + nombreUsuario + "' y rol='" + rol + "'");
             return null;
         }
     }
@@ -26,17 +29,19 @@ public class loginDAO implements LOGIN{
     @Override
     public void Insertar(Usuario u) {
         try {
+            System.out.println("Insertar => nombre: '" + u.getNombre_usuario() + "', rol: '" + u.getRol() + "'");
             u.setPassword_hash(seguridad.generarHash(u.getPassword_hash()));
             em.getTransaction().begin();
             em.persist(u);
             em.getTransaction().commit();
-            System.out.println("Usuario insertado!");
+            System.out.println("Usuario insertado! ID=" + u.getID_usuario() + ", nombre=" + u.getNombre_usuario() + ", rol=" + u.getRol());
             InsertarSesion(new enSesion(u.getNombre_usuario(), u.getRol()));
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             System.out.println("Error al insertar: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
