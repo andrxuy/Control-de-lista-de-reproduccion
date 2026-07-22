@@ -27,41 +27,44 @@ public class REGISTERController {
 
     @FXML
     public void initialize(){
-        cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
+        cmbRol.getItems().addAll("Administrador", "Estándar");
     }
 
     public void Registrar(){
-        String user = txtUser.getText();
+        String user  = txtUser.getText();
         String password = txtPassword.getText();
         String rol = cmbRol.getValue();
+        System.out.println("=== REGISTRO ===");
+        System.out.println("Usuario: " + user);
+        System.out.println("Rol seleccionado: " + rol);
+
+        if (user == null || user.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campo vacio", "Ingrese un nombre de usuario.");
+            return;
+        }
+        if (password == null || password.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campo vacio", "Ingrese una contrasena.");
+            return;
+        }
+        if (rol == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin rol", "Seleccione un rol (Administrador o Estandar).");
+            return;
+        }
 
         EntityManagerFactory emf = null;
         EntityManager em = null;
         try{
-            if (user.isEmpty() || password.isEmpty() || rol == null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("campos vacios");
-                alert.setContentText("Ingrese todos los datos");
-                alert.show();
-                return;
-            }
-
             emf = JPAUtil.getEMF();
             em = emf.createEntityManager();
-            System.out.println("creo entidades");
             loginDAO loginDAO = new loginDAO(em);
-            System.out.println("Se creo ya el login dao con su usuario");
-            Usuario usuario = loginDAO.buscarUsuario(user, rol);
-            System.out.println("el encontrado es: " + usuario);
-            System.out.println(user + " " + password + " " + rol);
-
+            Usuario usuario = loginDAO.buscarUsuario(user.trim(), rol);
+            System.out.println("Busqueda => nombre: '" + user.trim() + "', rol: '" + rol + "' => resultado: " + usuario);
             if (usuario == null){
-                loginDAO.Insertar(new Usuario(user, password, rol));
+                Usuario nuevo = new Usuario(user.trim(), password, rol);
+                System.out.println("Creando usuario: " + nuevo);
+                loginDAO.Insertar(nuevo);
                 System.out.println("REGISTRO EXITOSO!");
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("REGISTRO EXITOSO!");
-                alert.setContentText("BIENVENIDO " + user);
-                alert.show();
+                mostrarAlerta(Alert.AlertType.CONFIRMATION, "REGISTRO EXITOSO!", "BIENVENIDO " + user);
                 txtPassword.clear();
                 txtUser.clear();
                 cmbRol.getSelectionModel().clearSelection();
@@ -71,21 +74,26 @@ public class REGISTERController {
                 Stage actual = (Stage) txtPassword.getScene().getWindow();
                 actual.close();
 
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("El usuario ya existe ingrese otro nuevamente!");
-                alert.setContentText("Ingrese un usuario que no tenga el mismo nombre y rol");
-                alert.show();
+            }else {
+                mostrarAlerta(Alert.AlertType.ERROR, "El usuario ya existe",
+                        "Ya existe un usuario '" + user + "' con rol '" + rol + "'.");
             }
         } catch (Exception e) {
-            System.out.println("llego al catch");
-            System.out.println(e.getMessage());
-        } finally {
+            System.out.println("Error en registro: " + e.getMessage());
+            e.printStackTrace();
+        }finally {
             if (em != null && em.isOpen()) {
-                System.out.println("se cerro la entidad / sesion");
                 em.close();
             }
         }
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     public static void irALogin(Stage stageActual) {
