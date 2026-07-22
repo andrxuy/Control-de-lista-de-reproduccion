@@ -22,11 +22,6 @@ public class LOGINController {
     public void initialize(){
         cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
     }
-    //----------------
-    EntityManagerFactory emf = JPAUtil.getEMF();
-    EntityManager em = emf.createEntityManager();
-
-    loginDAO loginDAO = new loginDAO(em);
     Seguridad seguridad = new Seguridad();
 
     public void iniciarSesion(){
