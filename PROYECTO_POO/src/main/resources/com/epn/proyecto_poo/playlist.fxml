@@ -1,63 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('file:fondo_para_login.jpg');" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.epn.proyecto_poo.controlador.PlaylistController">
    <children>
-
-      <ImageView fitHeight="407.0" fitWidth="600.0" layoutY="-3.0">
-         <image>
-            <Image url="@fondo_para_login.jpg" />
-         </image>
+      <ImageView fitHeight="785.0" fitWidth="1540.0">
+         <image><Image url="@fondo_para_login.jpg" /></image>
       </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9211ba" height="720.0" layoutX="25.0" layoutY="30.0" opacity="0.65" stroke="TRANSPARENT" width="1490.0" />
 
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9211ba" height="360.0" layoutX="22.0" layoutY="14.0" opacity="0.58" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="559.0" />
+      <!-- HEADER -->
+      <Label layoutX="55.0" layoutY="50.0" text="MIS PLAYLISTS" textFill="WHITE">
+         <font><Font name="System Bold" size="28.0" /></font>
+      </Label>
+      <Label fx:id="lblUsuario" layoutX="1176.0" layoutY="53.0" opacity="0.9" text="Usuario" textFill="WHITE">
+         <font><Font size="14.0" /></font>
+      </Label>
+      <Button layoutX="1380.0" layoutY="45.0" onAction="#cerrarSesion" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #ff4444; -fx-background-radius: 15; -fx-text-fill: white;" text="Cerrar Sesion">
+         <font><Font name="System Bold" size="12.0" /></font>
+      </Button>
 
-      <Pane layoutX="222.0" layoutY="28.0" prefHeight="166.0" prefWidth="166.0">
-         <clip>
-            <Circle centerX="83.0" centerY="83.0" radius="83.0" />
-         </clip>
+      <Pane layoutX="340.0" layoutY="32.0" prefHeight="55.0" prefWidth="55.0">
+         <clip><Circle centerX="27.5" centerY="27.5" radius="27.5" /></clip>
          <children>
-            <ImageView fitHeight="166.0" fitWidth="281.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@disco.gif" />
-               </image>
+            <ImageView fitHeight="55.0" fitWidth="90.0" preserveRatio="false">
+               <image><Image url="@disco.gif" /></image>
             </ImageView>
          </children>
       </Pane>
 
-      <Label layoutX="225.0" layoutY="205.0" text="PLAYLIST PARA TU DÍA" textFill="WHITE">
-         <font>
-            <Font name="California FB 24 Bold" size="18.0" />
-         </font>
+      <!-- BUSQUEDA GENERAL -->
+      <TextField fx:id="txtBusqueda" layoutX="55.0" layoutY="100.0" prefHeight="40.0" prefWidth="320.0" promptText="Buscar por nombre, artista..." style="-fx-background-color: rgba(255,255,255,0.15); -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 20; -fx-background-radius: 20; -fx-text-fill: white;">
+         <font><Font size="14.0" /></font>
+      </TextField>
+      <Label layoutX="390.0" layoutY="107.0" opacity="0.8" text="Genero:" textFill="WHITE">
+         <font><Font size="13.0" /></font>
       </Label>
+      <ComboBox fx:id="cmbGenero" layoutX="440.0" layoutY="100.0" prefHeight="40.0" prefWidth="150.0" />
 
-      <Button fx:id="btnPlaylist1" layoutX="128.0" layoutY="236.0" prefHeight="35.0" prefWidth="348.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 1;" text="PLAYLIST 01" textFill="WHITE" />
-      <Label layoutX="140.0" layoutY="244.0" text="▶" textFill="WHITE">
-         <font>
-            <Font name="California FB 24 Regular" size="14.0" />
-         </font>
+      <Button fx:id="btnReproducir" layoutX="610.0" layoutY="100.0" onAction="#reproducirSeleccionada" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #1DB954; -fx-background-radius: 20; -fx-text-fill: white;" text="Reproducir">
+         <font><Font name="System Bold" size="13.0" /></font>
+      </Button>
+      <Button fx:id="btnMostrarTodos" layoutX="755.0" layoutY="100.0" onAction="#mostrarTodos" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #555555; -fx-background-radius: 20; -fx-text-fill: white;" text="Mostrar Todos">
+         <font><Font name="System Bold" size="13.0" /></font>
+      </Button>
+
+      <!-- BUSQUEDA POR ID -->
+      <Label layoutX="920.0" layoutY="90.0" opacity="0.7" text="ID:" textFill="WHITE">
+         <font><Font size="11.0" /></font>
       </Label>
+      <TextField fx:id="txtBuscarId" layoutX="920.0" layoutY="100.0" prefHeight="40.0" prefWidth="80.0" promptText="ID" style="-fx-background-color: rgba(255,255,255,0.15); -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;">
+         <font><Font size="14.0" /></font>
+      </TextField>
+      <Button layoutX="1010.0" layoutY="100.0" onAction="#buscarPorId" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ff8800; -fx-background-radius: 20; -fx-text-fill: white;" text="Buscar ID">
+         <font><Font name="System Bold" size="12.0" /></font>
+      </Button>
 
-      <Button fx:id="btnPlaylist2" layoutX="128.0" layoutY="276.0" prefHeight="35.0" prefWidth="348.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 1;" text="PLAYLIST 02" textFill="WHITE" />
-      <Label layoutX="140.0" layoutY="284.0" text="▶" textFill="WHITE">
-         <font>
-            <Font name="California FB 24 Regular" size="14.0" />
-         </font>
+      <!-- BUSQUEDA POR DEEZER -->
+      <Label layoutX="1120.0" layoutY="90.0" opacity="0.7" text="Deezer:" textFill="#ffaa00">
+         <font><Font size="11.0" /></font>
       </Label>
+      <TextField fx:id="txtBuscarApi" layoutX="1120.0" layoutY="100.0" prefHeight="40.0" prefWidth="160.0" promptText="Buscar en Deezer..." style="-fx-background-color: rgba(255,170,0,0.15); -fx-border-color: rgba(255,170,0,0.3); -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;">
+         <font><Font size="14.0" /></font>
+      </TextField>
+      <Button layoutX="1290.0" layoutY="100.0" onAction="#buscarEnDeezer" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffaa00; -fx-background-radius: 20; -fx-text-fill: #1a1a1a;" text="Deezer">
+         <font><Font name="System Bold" size="12.0" /></font>
+      </Button>
 
-      <Button fx:id="btnPlaylist3" layoutX="128.0" layoutY="316.0" prefHeight="35.0" prefWidth="348.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 1;" text="PLAYLIST 03" textFill="WHITE" />
-      <Label layoutX="140.0" layoutY="324.0" text="▶" textFill="WHITE">
-         <font>
-            <Font name="California FB 24 Regular" size="14.0" />
-         </font>
+      <!-- TABLA -->
+      <TableView fx:id="tblCanciones" layoutX="55.0" layoutY="155.0" prefHeight="470.0" prefWidth="1430.0" style="-fx-background-color: rgba(0,0,0,0.25); -fx-control-inner-background: rgba(0,0,0,0.15); -fx-table-cell-border-color: rgba(255,255,255,0.08);">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="55.0" text="ID" />
+            <TableColumn fx:id="colNombre" prefWidth="250.0" text="Nombre" />
+            <TableColumn fx:id="colArtista" prefWidth="200.0" text="Artista" />
+            <TableColumn fx:id="colGenero" prefWidth="180.0" text="Genero / Album" />
+            <TableColumn fx:id="colDuracion" prefWidth="85.0" text="Duracion" />
+            <TableColumn fx:id="colOrigen" prefWidth="85.0" text="Origen" />
+            <TableColumn fx:id="colAcciones" prefWidth="230.0" text="Acciones" />
+         </columns>
+         <placeholder><Label opacity="0.6" text="No hay canciones. Busca una." textFill="WHITE" /></placeholder>
+      </TableView>
+
+      <!-- REPRODUCTOR -->
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a0a2e" height="100.0" layoutX="25.0" layoutY="640.0" opacity="0.85" width="1490.0" />
+      <Label layoutX="55.0" layoutY="650.0" opacity="0.8" text="Reproduciendo:" textFill="#ff2e92">
+         <font><Font name="System Bold" size="11.0" /></font>
       </Label>
-
+      <Label fx:id="lblCancionActual" layoutX="55.0" layoutY="668.0" prefWidth="300.0" text="Ninguna cancion seleccionada" textFill="WHITE">
+         <font><Font name="System Bold" size="14.0" /></font>
+      </Label>
+      <Button fx:id="btnPlayPause" layoutX="400.0" layoutY="672.0" onAction="#togglePlayPause" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #1DB954; -fx-background-radius: 20; -fx-text-fill: white;" text="&gt;">
+         <font><Font name="System Bold" size="16.0" /></font>
+      </Button>
+      <Button layoutX="465.0" layoutY="672.0" onAction="#detenerReproduccion" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #ff4444; -fx-background-radius: 20; -fx-text-fill: white;" text="&#9632;">
+         <font><Font name="System Bold" size="14.0" /></font>
+      </Button>
+      <Slider fx:id="sldProgreso" layoutX="540.0" layoutY="678.0" max="100.0" prefWidth="500.0" value="0.0" />
+      <Label fx:id="lblTiempoActual" layoutX="1055.0" layoutY="680.0" opacity="0.8" text="0:00" textFill="WHITE">
+         <font><Font size="12.0" /></font>
+      </Label>
+      <Label layoutX="1100.0" layoutY="680.0" opacity="0.5" text="/" textFill="WHITE">
+         <font><Font size="12.0" /></font>
+      </Label>
+      <Label fx:id="lblTiempoTotal" layoutX="1115.0" layoutY="680.0" opacity="0.8" text="0:00" textFill="WHITE">
+         <font><Font size="12.0" /></font>
+      </Label>
+      <Label layoutX="1200.0" layoutY="680.0" opacity="0.5" text="Vol" textFill="WHITE">
+         <font><Font size="11.0" /></font>
+      </Label>
+      <Slider fx:id="sldVolumen" layoutX="1240.0" layoutY="678.0" max="100.0" prefWidth="160.0" value="70.0" />
+      <Label fx:id="lblEstado" layoutX="55.0" layoutY="750.0" opacity="0.6" text="" textFill="WHITE">
+         <font><Font size="12.0" /></font>
+      </Label>
    </children>
 </Pane>

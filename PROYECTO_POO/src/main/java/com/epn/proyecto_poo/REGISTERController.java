@@ -37,39 +37,33 @@ public class REGISTERController {
         String user  = txtUser.getText();
         String password = txtPassword.getText();
         String rol = cmbRol.getValue();
-        if (!(user.isEmpty()) && !(password.isEmpty()) && rol != null ){
-            try{
-                Usuario usuario = loginDAO.buscarUsuario(user, rol);
-                if (usuario == null){
-                    loginDAO.Insertar(new Usuario(user, password, rol));
-                    System.out.println("REGISTRO EXITOSO!");
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("REGISTRO EXITOSO!");
-                    alert.setContentText("BIENVENIDO "+ user);
-                    alert.show();
-                    txtPassword.clear();
-                    txtUser.clear();
-                    cmbRol.getSelectionModel().clearSelection();
+        System.out.println("antes try");
+        try{
+            Usuario usuario = loginDAO.buscarUsuario(user, rol);
+            if (usuario != null){
+                loginDAO.Insertar(new Usuario(user, password, rol));
+                System.out.println("REGISTRO EXITOSO!");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("REGISTRO EXITOSO!");
+                alert.setContentText("BIENVENIDO "+ user);
+                alert.show();
+                txtPassword.clear();
+                txtUser.clear();
+                cmbRol.getSelectionModel().clearSelection();
 
-                    Stage stage = new Stage();
-                    irALogin(stage);
-                    Stage actual = (Stage) txtPassword.getScene().getWindow();
-                    actual.close();
+                Stage stage = new Stage();
+                irALogin(stage);
+                Stage actual = (Stage) txtPassword.getScene().getWindow();
+                actual.close();
 
-                }else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("El usuario ya existe ingrese otro nuevamente!");
-                    alert.setContentText("Ingrese un usuario que no tenga el mismo nombre y rol");
-                    alert.show();
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("El usuario ya existe ingrese otro nuevamente!");
+                alert.setContentText("Ingrese un usuario que no tenga el mismo nombre y rol");
+                alert.show();
             }
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setContentText("Debe ingresar datos para poder registrarse");
-            alert.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

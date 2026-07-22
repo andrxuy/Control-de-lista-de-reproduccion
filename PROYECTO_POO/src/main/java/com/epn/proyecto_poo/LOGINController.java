@@ -3,7 +3,6 @@ package com.epn.proyecto_poo;
 import com.epn.proyecto_poo.modelo.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,27 +34,27 @@ public class LOGINController {
         String user = txtUser.getText();
         String password_plana = txtPassword.getText();
         String rol = cmbRol.getValue();
-        System.out.println("usuario recepto: user: " +user+", passwprd: "+password_plana+", rol: "+rol);
+        System.out.println("usuario recepto: user: " + user + ", password: " + password_plana + ", rol: " + rol);
         if (user.isEmpty() || password_plana.isEmpty() || rol == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos",
                     "Por favor completa usuario, contraseña y selecciona un rol.");
             return;}
         try {
             Usuario usuarioEncontrado = loginDAO.buscarUsuario(user, rol);
-            System.out.println("Primer try.Usuario que se encontro: " + usuarioEncontrado);
+            System.out.println("Primer try. Usuario que se encontro: " + usuarioEncontrado);
             if (usuarioEncontrado == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario no encontrado",
                         "No existe un usuario con ese nombre y rol.");
                 return;}
             boolean passwordCorrecta = seguridad.validarHash(password_plana, usuarioEncontrado.getPassword_hash());
             if (passwordCorrecta) {
+                loginDAO.InsertarSesion(new enSesion(user, rol));
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido",
                         "Inicio de sesión exitoso, " + usuarioEncontrado.getNombre_usuario());
                 Stage stage = new Stage();
                 irAprincipal(stage);
                 Stage stageVieja = (Stage) txtUser.getScene().getWindow();
                 stageVieja.close();
-                loginDAO.InsertarSesion(new enSesion(user, rol));
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Contraseña incorrecta",
                         "La contraseña ingresada no es correcta.");
@@ -100,13 +99,13 @@ public class LOGINController {
     public void irAprincipal(Stage stageActual){
         try {
             FXMLLoader loader = new FXMLLoader(
-                    REGISTERController.class.getResource("/com/epn/proyecto_poo/vistaAlbum.fxml")
+                    REGISTERController.class.getResource("/com/epn/proyecto_poo/playlist.fxml")
             );
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stageActual.setScene(scene);
 
-            stageActual.setTitle("Iniciar Sesión");
+            stageActual.setTitle("Mi Playlist - Reproductor");
             stageActual.show();
 
         } catch (IOException e) {
