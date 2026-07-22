@@ -13,6 +13,14 @@ public class SesionActual {
         rolActual = rol;
     }
 
+    public static void setUsuario(String usuario) {
+        usuarioActual = usuario;
+    }
+
+    public static void setRol(String rol) {
+        rolActual = rol;
+    }
+
     public static String getUsuario() {
         if (usuarioActual == null) {
             cargarDesdeBD();
